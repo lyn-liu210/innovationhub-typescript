@@ -1,0 +1,13 @@
+{
+    "type": "mssql",
+    "host": "DLC000G4C59H2LD",
+    "database": "innovationhub",
+    "username":"sa",
+    "password":"123456!Q@W",
+    "extra": {
+      "driver": "mssql/msnodesqlv8",
+      "options": {
+        "trustedConnection": true
+      }
+    }
+  }
