@@ -1,4 +1,4 @@
-import { createConnection } from "typeorm";
+import { createConnection, getConnection} from "typeorm";
 import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
 import { User} from "../entity/user"
 import {
@@ -8,6 +8,7 @@ import {
 import "reflect-metadata";
 export class DBHelper {
     private readonly connectionOptions: SqlServerConnectionOptions;
+    private  connection: Connection;
     constructor(
         host: string,
         port: number,
@@ -18,9 +19,6 @@ export class DBHelper {
         if (!host || !port || !username || !password || !database) {
             throw new Error('Invalid connection parameters');
         }
-
-        // console.log(`${__dirname}../entity/*.ts`)
-
         this.connectionOptions = {
             database,
             entities: [User],
@@ -33,12 +31,14 @@ export class DBHelper {
         };
     }
     async getDbConnection(): Promise<Connection> {
-        let connection: Connection;
-        connection = await createConnection(this.connectionOptions);
-        return connection;
+        // let connection: Connection;
+        this.connection = await createConnection(this.connectionOptions);
+        return this.connection;
     }
-    async closeConnection(): Promise<Connection> {
-        return null;
+    async closeConnection(): Promise<void> {
+       
+        let connection = await getConnection();
+        await connection.close();
     }
 }
 

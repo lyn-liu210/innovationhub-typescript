@@ -3,7 +3,7 @@ import express=require('express');
 // import {  dbtest} from "./routes/dbtest";
 import "reflect-metadata";
 
-var dbtest = require('./routes/dbtest');
+var user = require('./routes/userroute');
 const app:express.Application=express();
 app.get('/',function(req,res){
     res.send('Hello World!');
@@ -14,7 +14,7 @@ app.get('/',function(req,res){
 // password: string,
 // database: string
 console.log("__dirname", __dirname)
-app.use("/testdb",dbtest)
+app.use("/users",user)
 app.listen(8888,function(){
     console.log('Example app listening on port 8888!');
 })
