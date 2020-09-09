@@ -9,5 +9,6 @@
       "options": {
         "trustedConnection": true
       }
-    }
+    },
+    "entities": ["src/entity/*.ts"]
   }

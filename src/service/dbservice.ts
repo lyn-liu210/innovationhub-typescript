@@ -1,6 +1,7 @@
 
 import { Connection } from 'typeorm';
 import { DBHelper } from "../utils/dbhelper"
+import { User } from "../entity/user"
 export class DatabaseService {
     constructor(private dbhelper: DBHelper) {
         this.dbhelper = dbhelper;
@@ -17,5 +18,13 @@ export class DatabaseService {
         } finally {
             await this.dbhelper.closeConnection();
         }
+    }
+
+    async findUserById(id) {
+        const connection: Connection = await this.dbhelper.getDbConnection();
+        // await this.dbhelper.closeConnection()
+        const user = await connection.manager.findOne(User,{id: 1})
+        console.log('user', user)
+        return user;
     }
 }

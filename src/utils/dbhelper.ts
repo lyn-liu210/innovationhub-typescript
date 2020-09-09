@@ -1,11 +1,10 @@
 import { createConnection, getConnection} from "typeorm";
 import { SqlServerConnectionOptions } from 'typeorm/driver/sqlserver/SqlServerConnectionOptions';
 import { User} from "../entity/user"
+import { Department} from "../entity/department"
 import {
     Connection,
 } from 'typeorm';
-
-import "reflect-metadata";
 export class DBHelper {
     private readonly connectionOptions: SqlServerConnectionOptions;
     private  connection: Connection;
@@ -21,13 +20,14 @@ export class DBHelper {
         }
         this.connectionOptions = {
             database,
-            entities: [User],
+            entities: [User,Department],
             host,
             password,
             port,
             synchronize: true,
             type: 'mssql',
             username,
+            // synchronize
         };
     }
     async getDbConnection(): Promise<Connection> {

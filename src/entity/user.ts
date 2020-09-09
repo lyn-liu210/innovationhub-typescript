@@ -1,4 +1,6 @@
-import {Entity, Column,PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column,PrimaryGeneratedColumn, OneToOne, JoinColumn,ManyToOne} from "typeorm";
+import { Department } from "./department";
+import { Project } from "./project";
  
 @Entity()
 export class User {
@@ -14,4 +16,11 @@ export class User {
 
     @Column()
     age: number;
+
+    @OneToOne(type => Department, department => department.user)
+    @JoinColumn()
+    department: Department
+
+    @ManyToOne(type => Project, project => project.users)
+    project: Project
 }
